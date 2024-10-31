@@ -8,4 +8,4 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the stack
-        run: docker-compose up -f ./hotel-booking/docker-compose.test.yml -d
+        run: docker-compose up -f ./hotel-booking/docker-compose.yml -d
