@@ -1,8 +1,10 @@
 name: Docker Compose Actions Workflow
 on: push
 jobs:
-  test:
+  build:
     runs-on: ubuntu-latest
+    container:
+      image: lucasalt/act_base:latest
     steps:
       - uses: actions/checkout@v2
       - name: Build the stack
