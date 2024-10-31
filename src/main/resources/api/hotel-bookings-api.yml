@@ -1,0 +1,110 @@
+openapi: 3.0.1
+info:
+  title: Hotel booking search API
+  version: 1.0.0
+  description: API for hotel booking search management
+tags:
+  - name: hotel-booking-search
+    description: Hotel bookings search API
+servers:
+  - url: http://localhost:8080
+    description: Generated server url
+
+paths:
+  /search:
+    get:
+      tags:
+        - hotel-booking-search
+      operationId: search-get
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingSearchCountResponse'
+        '201':
+          description: No content
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+    post:
+      tags:
+        - hotel-booking-search
+      operationId: search-post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BookingSearchRequest'
+      responses:
+        '201':
+          description: Booking search created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BookingSearchResponse'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorMessage'
+components:
+  schemas:
+    BookingSearchRequest:
+      required:
+        - hotelId
+        - checkIn
+        - checkOut
+        - ages
+      type: object
+      properties:
+        hotelId:
+          type: string
+        checkIn:
+          type: string
+        checkOut:
+          type: string
+        ages:
+          type: array
+          items:
+            type: integer
+            format: int32
+    BookingSearchResponse:
+      type: object
+      properties:
+        searchId:
+          type: string
+    BookingSearchCountResponse:
+      type: object
+      properties:
+        searchId:
+          type: string
+        search:
+          type: object
+          properties:
+            hotelId:
+              type: string
+            checkIn:
+              type: string
+            checkOut:
+              type: string
+            ages:
+              type: array
+              items:
+                type: integer
+                format: int32
+        count:
+          type: integer
+          format: int32
+    ErrorMessage:
+      type: object
+      properties:
+        message:
+          type: string
+        description:
+          type: string
